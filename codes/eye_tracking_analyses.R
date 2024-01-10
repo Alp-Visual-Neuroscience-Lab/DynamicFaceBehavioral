@@ -127,14 +127,27 @@ Y_coord_cross <- 187.71
 VisualDegrees_X_cross <- (X_coord_cross * 32) / 800
 VisualDegrees_Y_cross <- (Y_coord_cross * 32) / 800
 
-num_higher <- sum(df_exp1_filtered_coordinates_combined$VisualDegrees_Y > VisualDegrees_Y_cross)
-num_lower <- sum(df_exp1_filtered_coordinates_combined$VisualDegrees_Y < VisualDegrees_Y_cross)
-total_participants <- nrow(df_exp1_filtered_coordinates_combined)
-percentage_higher <- (num_higher / total_participants) * 100
-percentage_lower <- (num_lower / total_participants) * 100
+condition_levels <- unique(df_exp1_filtered_coordinates_combined$Condition)
 
-cat("Percentage of participants with Eye gaze higher than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_higher, "%\n")
-cat("Percentage of participants with Eye gaze lower than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_lower, "%\n")
+percentage_higher_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp1_filtered_coordinates_combined[df_exp1_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y > VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+
+result <- data.frame(Condition = condition_levels, Percentage_Higher = percentage_higher_by_condition)
+
+
+percentage_lower_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp1_filtered_coordinates_combined[df_exp1_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y < VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+
+result <- data.frame(Condition = condition_levels, Percentage_Lower = percentage_lower_by_condition)
+
 
 #CONDITIONS BASED ON VIDEO FILES
 #Blink vs No-Blink
@@ -200,15 +213,26 @@ df_exp1_filtered_coordinates_combined <- merge(df_exp1_filtered, df_c_1, by = "r
 df_exp1_filtered_coordinates_combined$VisualDegrees_X <- (df_exp1_filtered_coordinates_combined$X_Coord * 32) / 800
 df_exp1_filtered_coordinates_combined$VisualDegrees_Y <- (df_exp1_filtered_coordinates_combined$Y_Coord * 32) / 800
 
+condition_levels <- unique(df_exp1_filtered_coordinates_combined$Condition)
 
-num_higher <- sum(df_exp1_filtered_coordinates_combined$VisualDegrees_Y > VisualDegrees_Y_cross)
-num_lower <- sum(df_exp1_filtered_coordinates_combined$VisualDegrees_Y < VisualDegrees_Y_cross)
-total_participants <- nrow(df_exp1_filtered_coordinates_combined)
-percentage_higher <- (num_higher / total_participants) * 100
-percentage_lower <- (num_lower / total_participants) * 100
+percentage_higher_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp1_filtered_coordinates_combined[df_exp1_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y > VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
 
-cat("Percentage of participants with Eye gaze higher than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_higher, "%\n")
-cat("Percentage of participants with Eye gaze lower than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_lower, "%\n")
+result <- data.frame(Condition = condition_levels, Percentage_Higher = percentage_higher_by_condition)
+
+
+percentage_lower_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp1_filtered_coordinates_combined[df_exp1_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y < VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+
+result <- data.frame(Condition = condition_levels, Percentage_Lower = percentage_lower_by_condition)
 
 summary <- df_exp1_filtered_coordinates_combined %>% 
   group_by(Condition) %>% 
@@ -244,6 +268,7 @@ exp2_raw <- read_excel("/Users/gulcelale/Desktop/dynamic face perception2/dynami
 
 exp2_raw$subject_code <- as.factor(exp2_raw$subject_code)
 exp2_raw_distinct <- exp2_raw %>% group_by(subject_code) %>% summarize(n = n())
+
 
 #selecting
 t_n_c <- exp2_raw %>%
@@ -330,15 +355,25 @@ df_exp2_filtered_coordinates_combined <- merge(df_exp2_filtered, df_c_2, by = "r
 df_exp2_filtered_coordinates_combined$VisualDegrees_X <- (df_exp2_filtered_coordinates_combined$X_Coord * 32) / 800
 df_exp2_filtered_coordinates_combined$VisualDegrees_Y <- (df_exp2_filtered_coordinates_combined$Y_Coord * 32) / 800
 
-num_higher2 <- sum(df_exp2_filtered_coordinates_combined$VisualDegrees_Y > VisualDegrees_Y_cross)
-num_lower2 <- sum(df_exp2_filtered_coordinates_combined$VisualDegrees_Y < VisualDegrees_Y_cross)
-total_participants2 <- nrow(df_exp2_filtered_coordinates_combined)
-percentage_higher2 <- (num_higher2 / total_participants2) * 100
-percentage_lower2 <- (num_lower2 / total_participants2) * 100
+condition_levels <- unique(df_exp2_filtered_coordinates_combined$Condition)
 
-cat("Percentage of participants with Eye gaze higher than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_higher2, "%\n")
-cat("Percentage of participants with Eye gaze lower than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_lower2, "%\n")
+percentage_higher_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp2_filtered_coordinates_combined[df_exp2_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y > VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
 
+
+result <- data.frame(Condition = condition_levels, Percentage_Higher = percentage_higher_by_condition)
+
+percentage_lower_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp2_filtered_coordinates_combined[df_exp2_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y < VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+result <- data.frame(Condition = condition_levels, Percentage_Lower = percentage_lower_by_condition)
 
 summary <- df_exp2_filtered_coordinates_combined %>% 
   group_by(Condition) %>% 
@@ -443,15 +478,27 @@ df_exp2_filtered_coordinates_combined <- merge(df_exp2_filtered, df_c_2, by = "r
 df_exp2_filtered_coordinates_combined$VisualDegrees_X <- (df_exp2_filtered_coordinates_combined$X_Coord * 32) / 800
 df_exp2_filtered_coordinates_combined$VisualDegrees_Y <- (df_exp2_filtered_coordinates_combined$Y_Coord * 32) / 800
 
-num_higher2 <- sum(df_exp2_filtered_coordinates_combined$VisualDegrees_Y > VisualDegrees_Y_cross)
-num_lower2 <- sum(df_exp2_filtered_coordinates_combined$VisualDegrees_Y < VisualDegrees_Y_cross)
-total_participants2 <- nrow(df_exp2_filtered_coordinates_combined)
-percentage_higher2 <- (num_higher2 / total_participants2) * 100
-percentage_lower2 <- (num_lower2 / total_participants2) * 100
 
-cat("Percentage of participants with Eye gaze higher than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_higher2, "%\n")
-cat("Percentage of participants with Eye gaze lower than fixation cross:", VisualDegrees_Y_cross, "is:", percentage_lower2, "%\n")
+condition_levels <- unique(df_exp2_filtered_coordinates_combined$Condition)
 
+percentage_higher_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp2_filtered_coordinates_combined[df_exp2_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y > VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+
+
+result <- data.frame(Condition = condition_levels, Percentage_Higher = percentage_higher_by_condition)
+
+
+percentage_lower_by_condition <- sapply(condition_levels, function(cond) {
+  subset_data <- df_exp2_filtered_coordinates_combined[df_exp2_filtered_coordinates_combined$Condition == cond, ]
+  num_higher <- sum(subset_data$VisualDegrees_Y < VisualDegrees_Y_cross)
+  total_participants <- nrow(subset_data)
+  return((num_higher / total_participants) * 100)
+})
+result <- data.frame(Condition = condition_levels, Percentage_Lower = percentage_lower_by_condition)
 
 summary <- df_exp2_filtered_coordinates_combined %>% 
   group_by(Condition) %>% 

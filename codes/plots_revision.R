@@ -4,13 +4,13 @@ library(ggpubr)
 library(writexl)
 library(readxl)
 library(patchwork)
-install.packages('extrafont')
-#library(extrafont)
-
-font_import()
-
-  loadfonts(device = "postscript")
-loadfonts(device = "")
+# install.packages('extrafont')
+# #library(extrafont)
+# 
+# font_import()
+# 
+#   loadfonts(device = "postscript")
+# loadfonts(device = "")
 
 #EXP1
 #reaction time
@@ -29,11 +29,11 @@ melted_data_rt_exp1$Understanding <- factor(melted_data_rt_exp1$Understanding, l
 blink_colors <- c("#00AFBB", "#E7B800")
 
 
-bxp <- ggboxplot(
+bxp_rt <- ggboxplot(
   melted_data_rt_exp1, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Reaction Time \n (log10)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
@@ -42,17 +42,17 @@ bxp <- ggboxplot(
         strip.background = element_blank(),
         strip.text = element_text(face = "bold", family = "Arial", size = 12),
         legend.text = element_text(family = "Arial", face = "bold", size = 12)) 
-bxp
+bxp_rt
 
 ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_46_exp1.png", width = 6, height = 6, dpi = 600)
 
 
 
-bxp <- ggboxplot(
+bxp_rt_understanding <- ggboxplot(
   melted_data_rt_exp1, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Reaction Time \n (log10)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   facet_grid(~Understanding) + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -62,7 +62,9 @@ bxp <- ggboxplot(
         strip.background = element_blank(),
         strip.text = element_text(face = "bold", family = "Arial", size = 12),
         legend.text = element_text(family = "Arial", face = "bold", size = 12)) 
-bxp
+bxp_rt_understanding
+
+
 
 ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_exp1_understanding_7.12.png", width = 6, height = 6, dpi = 600)
 
@@ -86,8 +88,8 @@ blink_colors <- c("#00AFBB", "#E7B800")
 bxp <- ggboxplot(
   melted_data_accuracy_exp1, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Accuracy Rate")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   geom_hline(yintercept = 0.5, linetype = "dotted", color = "darkgray") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -119,9 +121,9 @@ blink_colors <- c("#00AFBB", "#E7B800")
 
 bxpdprime_understanding <- ggboxplot(
   melted_data, x = "Orientation", y = "value",
-  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("D-prime")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Sensitivity (d')")  +
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   facet_grid(~Understanding) + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -133,13 +135,13 @@ bxpdprime_understanding <- ggboxplot(
         legend.text = element_text(family = "Arial", face = "bold", size = 12)) 
 bxpdprime_understanding
 
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/dprime_exp1_understanding_7.12.png", width = 6, height = 6, dpi = 600)
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/dprime_exp1_understanding_30.12.png", width = 6, height = 6, dpi = 600)
 
 bxp_dprime_exp1 <- ggboxplot(
   melted_data, x = "Orientation", y = "value",
-  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("D-prime")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Sensitivity (d')")  +
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
@@ -170,9 +172,9 @@ blink_colors <- c("#00AFBB", "#E7B800")
 
 bxpc_1 <- ggboxplot(
   melted_data_c_exp1, x = "Orientation", y = "value",
-  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Criteron (C)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors) + 
+  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Criterion (C)")  +
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors) + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
         panel.spacing = unit(0.6, "lines"),
@@ -186,14 +188,14 @@ bxpc_1
 ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_exp1_7.12.png", width = 6, height = 6, dpi = 600)
 
 ggarrange(bxp_dprime_exp1, bxpc_1, ncol=2, nrow=1, labels = c("A","B"),common.legend = TRUE, legend="top")
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp1_13.12.png", width = 6, height = 5, dpi = 600,bg = "white")
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp1_30.12.png", width = 6, height = 5, dpi = 600,bg = "white")
 
 
 bxp_c_understanding <- ggboxplot(
   melted_data_c_exp1, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Criterion (C)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors,
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors,
                      name = "Presence of an Eye Blink") +
   facet_grid(~Understanding) +
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -206,7 +208,7 @@ bxp_c_understanding <- ggboxplot(
 
 ggarrange(bxpdprime_understanding, bxp_c_understanding, ncol=2, nrow=1, labels = c("A","B"),common.legend = TRUE, legend="top")
 
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp1_understanding_13.12.png", width = 11, height = 5, dpi = 600,bg = "white")
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp1_understanding_30.12.png", width = 11, height = 5, dpi = 600,bg = "white")
 
 #EXP2
 #reaction time
@@ -238,8 +240,8 @@ blink_colors <- c("#00AFBB", "#E7B800")
 bxp <- ggboxplot(
   melted_data_rt_exp2, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Reaction Time \n (log10)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
@@ -276,8 +278,8 @@ melted_data_rt_understanding_exp2$understanding <- factor(melted_data_rt_underst
 bxp <- ggboxplot(
   melted_data_rt_understanding_exp2, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Reaction Time \n (log10)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   facet_grid(~understanding) + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -312,8 +314,8 @@ ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_exp2_unders
 # bxp <- ggboxplot(
 #   melted_data_accuracy_exp2, x = "Orientation", y = "value",
 #   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Accuracy Rate")  +
-#   scale_fill_manual(values = my_colors) +  # Change the fill colors
-#   scale_color_manual(values = my_colors, 
+#   scale_fill_manual(values = blink_colors) +  # Change the fill colors
+#   scale_color_manual(values = blink_colors, 
 #                      name = "Presence of an Eye Blink") + 
 #   geom_hline(yintercept = 0.5, linetype = "dotted", color = "darkgray") + 
 #   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -331,23 +333,24 @@ ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_exp2_unders
 #dprime
 dprime_df_exp2 = read_xlsx("/Users/gulcelale/Documents/ENS210/lab-6-lalegulce/_lab/6/Exp2_Dprime_all_conditions_after_exclusion_NEW.xlsx")
 
-table(dprime_df_exp2$understanding) #12 did not understand, 49 understood
+# table(dprime_df_exp2$understanding) #12 did not understand, 49 understood
+# 
+# random_selected_participants <- random_df_1$subject_code 
+# #select the corresponding rows from dprime
+# dprime_exp2_random_df_1 <- dprime_df_exp2 %>% filter(subject_code %in% random_selected_participants)
+# 
+# df_dprime_0 <- dprime_df_exp2 %>% filter(understanding == 0)
+# 
+# exp2_dprime_understanding_random_df <- bind_rows(df_dprime_0, dprime_exp2_random_df_1)
+# exp2_dprime_understanding_random_df<- exp2_dprime_understanding_random_df[order(exp2_dprime_understanding_random_df$subject_code,decreasing = FALSE),]
+# 
+# write.table(exp2_dprime_understanding_random_df, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_dprime_understanding_24.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
+# 
+# 
+# exp2_dprime_understanding_random_df$subject_code == exp2_RT_understanding_random_df$subject_code
+# #View(exp2_RT_understanding_random_df)
 
-random_selected_participants <- random_df_1$subject_code 
-#select the corresponding rows from dprime
-dprime_exp2_random_df_1 <- dprime_df_exp2 %>% filter(subject_code %in% random_selected_participants)
-
-df_dprime_0 <- dprime_df_exp2 %>% filter(understanding == 0)
-
-exp2_dprime_understanding_random_df <- bind_rows(df_dprime_0, dprime_exp2_random_df_1)
-exp2_dprime_understanding_random_df<- exp2_dprime_understanding_random_df[order(exp2_dprime_understanding_random_df$subject_code,decreasing = FALSE),]
-
-write.table(exp2_dprime_understanding_random_df, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_dprime_understanding_24.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
-
-
-exp2_dprime_understanding_random_df$subject_code == exp2_RT_understanding_random_df$subject_code
-#View(exp2_RT_understanding_random_df)
-
+table(dprime_df_exp2$understanding)
 
 melted_data_exp2 <- reshape2::melt(dprime_df_exp2, id.vars = c("subject_code", "understanding"))
 
@@ -355,12 +358,13 @@ melted_data_exp2$Orientation <- factor(sub(".*-(Upright|Rotated)", "\\1", melted
                                        levels = c("Upright", "Rotated"),labels = c("Upright", "Inverted"))
 melted_data_exp2$Blink <- factor(sub("(Blink|No-Blink)-.*", "\\1", melted_data_exp2$variable),
                                  levels = c("Blink", "NoBlink"),labels = c("With-Blink", "No-Blink"))
+melted_data_exp2$understanding <- factor(melted_data_exp2$understanding, levels = c("1", "0"),labels = c("Understood", "Did not understand"))
 
 bxp_dprime_exp2 <- ggboxplot(
   melted_data_exp2, x = "Orientation", y = "value",
-  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("D-prime")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Sensitivity (d')")  +
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
@@ -392,12 +396,11 @@ melted_data_dprime_exp2_understanding$understanding <- factor(melted_data_dprime
 # Define custom colors for Blink and NoBlink
 blink_colors <- c("#00AFBB", "#E7B800")
 
-
 bxp_dprime_exp2_understanding <- ggboxplot(
-  melted_data_dprime_exp2_understanding, x = "Orientation", y = "value",
-  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("D-prime")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors,
+  melted_data_exp2, x = "Orientation", y = "value",
+  color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Sensitivity (d')")  +
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors,
                      name = "Presence of an Eye Blink") +
   facet_grid(~understanding) +
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -416,22 +419,22 @@ c_df_exp2 = read_xlsx("/Users/gulcelale/Documents/ENS210/lab-6-lalegulce/_lab/6/
 
 table(c_df_exp2$understanding) #12 did not understand, 49 understood
 
-random_selected_participants <- random_df_1$subject_code 
-#select the corresponding rows from c
-c_df_exp2_random_df_1 <- c_df_exp2 %>% filter(subject_code %in% random_selected_participants)
-
-df_c_0 <- c_df_exp2 %>% filter(understanding == 0)
-
-exp2_c_understanding_random_df <- bind_rows(df_c_0, c_df_exp2_random_df_1)
-exp2_c_understanding_random_df<- exp2_c_understanding_random_df[order(exp2_c_understanding_random_df$subject_code,decreasing = FALSE),]
-
-#check if the subject_codes are the same
-exp2_c_understanding_random_df$subject_code == exp2_RT_understanding_random_df$subject_code
-exp2_c_understanding_random_df$subject_code == exp2_dprime_understanding_random_df$subject_code 
-
-write.table(exp2_c_understanding_random_df, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_c_understanding_24.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
-write.table(dprime_df_exp2, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_d_understanding_all.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
-
+# random_selected_participants <- random_df_1$subject_code 
+# #select the corresponding rows from c
+# c_df_exp2_random_df_1 <- c_df_exp2 %>% filter(subject_code %in% random_selected_participants)
+# 
+# df_c_0 <- c_df_exp2 %>% filter(understanding == 0)
+# 
+# exp2_c_understanding_random_df <- bind_rows(df_c_0, c_df_exp2_random_df_1)
+# exp2_c_understanding_random_df<- exp2_c_understanding_random_df[order(exp2_c_understanding_random_df$subject_code,decreasing = FALSE),]
+# 
+# #check if the subject_codes are the same
+# exp2_c_understanding_random_df$subject_code == exp2_RT_understanding_random_df$subject_code
+# exp2_c_understanding_random_df$subject_code == exp2_dprime_understanding_random_df$subject_code 
+# 
+# write.table(exp2_c_understanding_random_df, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_c_understanding_24.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
+# write.table(dprime_df_exp2, "/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_d_understanding_all.csv", sep = ",",row.names = FALSE,col.names  = TRUE)
+# 
 
 melted_data_c_exp2 <- reshape2::melt(c_df_exp2, id.vars = c("subject_code", "understanding"))
 
@@ -448,8 +451,8 @@ blink_colors <- c("#00AFBB", "#E7B800")
 bxp_c_exp2 <- ggboxplot(
   melted_data_c_exp2, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Criterion (C)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors, 
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors, 
                      name = "Presence of an Eye Blink") + 
   theme(axis.line = element_line(colour = 'black', size = 0.1),
         panel.border = element_rect(color = "black", fill = NA),
@@ -461,7 +464,7 @@ bxp_c_exp2 <- ggboxplot(
 bxp_c_exp2
 
 ggarrange(bxp_dprime_exp2, bxp_c_exp2, ncol=2, nrow=1, labels = c("A","B"),common.legend = TRUE, legend="top")
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp2_13.12.png", width = 6, height = 5, dpi = 600,bg = "white")
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp2_30.12.png", width = 6, height = 5, dpi = 600,bg = "white")
 
 #understanding 
 exp2_c_understanding_random_df <- read.csv("/Users/gulcelale/Desktop/dynamic face perception2/dynamic_face_perception_all_data/experiment_2/Exp2_c_understanding_24.csv",sep = ',')
@@ -481,10 +484,10 @@ blink_colors <- c("#00AFBB", "#E7B800")
 
 
 bxp_c_understanding_exp2 <- ggboxplot(
-  melted_data_c_exp2_understanding, x = "Orientation", y = "value",
+  melted_data_c_exp2, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Criterion (C)")  +
-  scale_fill_manual(values = my_colors) +  # Change the fill colors
-  scale_color_manual(values = my_colors,
+  scale_fill_manual(values = blink_colors) +  # Change the fill colors
+  scale_color_manual(values = blink_colors,
                      name = "Presence of an Eye Blink") +
   facet_grid(~understanding) +
   theme(axis.line = element_line(colour = 'black', size = 0.1),
@@ -498,8 +501,9 @@ bxp_c_understanding_exp2
 
 ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_exp2_understanding_12.12.png", width = 6, height = 6, dpi = 600)
 
+
 ggarrange(bxp_dprime_exp2_understanding, bxp_c_understanding_exp2, ncol=2, nrow=1, labels = c("A","B"),common.legend = TRUE, legend="top")
 
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp2_13.12.png", width = 11, height = 5, dpi = 600,bg = "white")
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/c_and_dprime_exp2_understanding_30.12.png", width = 11, height = 5, dpi = 600,bg = "white")
 
 

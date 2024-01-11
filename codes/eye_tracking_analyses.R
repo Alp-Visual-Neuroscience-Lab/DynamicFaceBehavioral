@@ -284,10 +284,10 @@ t_n_c <- exp2_raw %>%
 
 #excluding subjects 
 #added 2995 because missing data 
-exclude_subjects_exp21 <- c("1238", "2180","2450","2762","2783","2797","2816","2824","2837","4885","6949","7002")
-
 
 exclude_subjects_exp2 <- c("2995","1238","2180","2450","2762","2783","2797","2816","2824","2837","4885","6949","7002","2294", "2313", "2714", "2906", "3455","5026", "5910","5659")
+
+
 t_n_c <- subset(t_n_c, !(subject_code %in% exclude_subjects_exp2))
 
 

@@ -232,7 +232,7 @@ melted_data_rt_exp2$Orientation <- factor(sub(".*-(Upright|Rotated)", "\\1", mel
 melted_data_rt_exp2$Blink <- factor(sub("(Blink|No-Blink)-.*", "\\1", melted_data_rt_exp2$variable),
                                     levels = c("Blink", "No-Blink"),labels = c("With-Blink", "No-Blink"))
 
-#melted_data_rt_exp2$understanding <- factor(melted_data_rt_exp2$understanding, levels = c("1", "0"),labels = c("Understood", "Did not understand"))
+melted_data_rt_exp2$understanding <- factor(melted_data_rt_exp2$understanding, levels = c("1", "0"),labels = c("Understood", "Did not understand"))
 
 # Define custom colors for Blink and NoBlink
 blink_colors <- c("#00AFBB", "#E7B800")
@@ -276,7 +276,7 @@ melted_data_rt_understanding_exp2$Blink <- factor(sub("(Blink|No-Blink)-.*", "\\
 melted_data_rt_understanding_exp2$understanding <- factor(melted_data_rt_understanding_exp2$understanding, levels = c("1", "0"),labels = c("Understood", "Did not understand"))
 
 bxp <- ggboxplot(
-  melted_data_rt_understanding_exp2, x = "Orientation", y = "value",
+  melted_data_rt_exp2, x = "Orientation", y = "value",
   color = "Blink",add = "jitter", size = 0.75) + xlab("Orientation") + ylab("Reaction Time \n (log10)")  +
   scale_fill_manual(values = blink_colors) +  # Change the fill colors
   scale_color_manual(values = blink_colors, 
@@ -291,7 +291,7 @@ bxp <- ggboxplot(
         legend.text = element_text(family = "Arial", face = "bold", size = 12)) 
 bxp
 
-ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_exp2_understanding_12.12.png", width = 6, height = 6, dpi = 600)
+ggsave("/Users/gulcelale/Desktop/dynamic face perception2/figures/RT_exp2_understanding_30.12.png", width = 6, height = 6, dpi = 600)
 
 
 
